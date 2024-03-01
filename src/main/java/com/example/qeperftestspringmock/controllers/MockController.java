@@ -1,7 +1,7 @@
 package com.example.qeperftestspringmock.controllers;
 
-import com.example.qeperftestspringmock.models.Request;
-import com.example.qeperftestspringmock.models.Response;
+import com.example.qeperftestspringmock.models.MockRequest;
+import com.example.qeperftestspringmock.models.MockResponse;
 import com.example.qeperftestspringmock.services.MockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,18 +23,18 @@ public class MockController {
     private MockService mockService;
 
     @PostMapping("/mock")
-    public ResponseEntity<?> handlePostRequest(@RequestBody Request request) throws InterruptedException {
-        logger.info("Request: {}", request);
+    public ResponseEntity<?> handlePostRequest(@RequestBody MockRequest mockRequest) throws InterruptedException {
+        logger.info("Request: {}", mockRequest);
 
-        Response response = mockService.generateResponse(request);
-        logger.info("Response: {}", response);
+        MockResponse mockResponse = mockService.generateResponse(mockRequest);
+        logger.info("Response: {}", mockResponse);
 
         if (mockService.isError()) {
             logger.error("Status: {}", HttpStatus.INTERNAL_SERVER_ERROR);
             return new ResponseEntity<>(Map.of("error", "Произошла ошибка на сервере"), HttpStatus.INTERNAL_SERVER_ERROR);
         } else {
             logger.info("Status: {}", HttpStatus.OK);
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return new ResponseEntity<>(mockResponse, HttpStatus.OK);
         }
     }
 }

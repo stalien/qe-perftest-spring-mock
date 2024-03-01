@@ -1,9 +1,11 @@
 package com.example.qeperftestspringmock.models;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class Request {
+@Builder
+public class MockRequest {
 
     private String appId;
     private String name;

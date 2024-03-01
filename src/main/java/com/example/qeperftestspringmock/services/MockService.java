@@ -1,8 +1,8 @@
 package com.example.qeperftestspringmock.services;
 
+import com.example.qeperftestspringmock.models.MockRequest;
 import com.example.qeperftestspringmock.models.StatusValues;
-import com.example.qeperftestspringmock.models.Request;
-import com.example.qeperftestspringmock.models.Response;
+import com.example.qeperftestspringmock.models.MockResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +14,21 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class MockService {
 
-    @Value("${response.delay}")
-    private int responseDelay;
+    @Value("${mockResponse.delay}")
+    private int mockResponseDelay;
     @Value("${error.rate}")
     private int errorRate;
 
-    public Response generateResponse(Request request) throws InterruptedException {
+    public MockResponse generateResponse(MockRequest mockRequest) throws InterruptedException {
         // Задержка ответа
-        TimeUnit.SECONDS.sleep(responseDelay);
+        TimeUnit.SECONDS.sleep(mockResponseDelay);
 
         // Вариативность ответов status
         Random random = new Random();
         StatusValues statusValue = StatusValues.values()[random.nextInt(StatusValues.values().length)];
 
         // Возвращаем данные appId из входящего запроса в ответный JSON
-        String appId = request.getAppId();
+        String appId = mockRequest.getAppId();
 
         // Время изменения статуса
         OffsetDateTime now = OffsetDateTime.now();
@@ -37,7 +37,7 @@ public class MockService {
         // Некий рандомный номер заявления
         int number = random.nextInt(100000);
 
-        return Response.builder()
+        return MockResponse.builder()
                 .appId(appId)
                 .status(statusValue.toString())
                 .lastStatusChangeDateTime(formattedNow)

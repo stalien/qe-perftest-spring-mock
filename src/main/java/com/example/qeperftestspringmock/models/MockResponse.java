@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class Response {
+public class MockResponse {
 
     private String appId;
     private String status;
