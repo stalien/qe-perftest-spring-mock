@@ -46,7 +46,7 @@ public class MockService {
     }
 
     public boolean isError() {
-        // Эмуляция процента ошибок
+        // Эмуляция заданного процента ошибок
         Random random = new Random();
         int randomValue = random.nextInt(100);
         return randomValue < errorRate;
