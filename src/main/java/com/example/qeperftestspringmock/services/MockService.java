@@ -21,7 +21,7 @@ public class MockService {
 
     public MockResponse generateResponse(MockRequest mockRequest) throws InterruptedException {
         // Задержка ответа
-        TimeUnit.SECONDS.sleep(mockResponseDelay);
+        TimeUnit.MILLISECONDS.sleep(mockResponseDelay);
 
         // Вариативность ответов status
         Random random = new Random();
