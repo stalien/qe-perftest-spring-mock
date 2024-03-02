@@ -20,11 +20,17 @@ public class MockService {
     private int errorRate;
 
     public MockResponse generateResponse(MockRequest mockRequest) throws InterruptedException {
+        Random random = new Random();
+
         // Задержка ответа
-        TimeUnit.MILLISECONDS.sleep(mockResponseDelay);
+        int delay;
+        do {
+            double val = random.nextGaussian() * 100 + mockResponseDelay;
+            delay = (int) Math.round(val);
+        } while (delay <= 0);
+        TimeUnit.MILLISECONDS.sleep(delay);
 
         // Вариативность ответов status
-        Random random = new Random();
         StatusValues statusValue = StatusValues.values()[random.nextInt(StatusValues.values().length)];
 
         // Возвращаем данные appId из входящего запроса в ответный JSON
