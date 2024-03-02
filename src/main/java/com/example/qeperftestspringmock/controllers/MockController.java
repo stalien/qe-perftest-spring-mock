@@ -3,6 +3,7 @@ package com.example.qeperftestspringmock.controllers;
 import com.example.qeperftestspringmock.models.MockRequest;
 import com.example.qeperftestspringmock.models.MockResponse;
 import com.example.qeperftestspringmock.services.MockService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class MockController {
     private MockService mockService;
 
     @PostMapping("/mock")
+    @RateLimiter(name = "mock")
     public ResponseEntity<?> handlePostRequest(@RequestBody MockRequest mockRequest) throws InterruptedException {
         logger.info("Request: {}", mockRequest);
 
