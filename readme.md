@@ -48,3 +48,14 @@
    )
 
    `error.rate=10`
+
+## Метрики
+
+* в проекте настроена выгрузка метрик в формате Prometheus посредством Spring Actuator(Micrometer) http://localhost:8080/actuator/prometheus, 
+визуализация в Grafana была реализована дашбордом `Micrometer Spring Throughput` (ID: 5373)
+
+* тестовая нагрузка подавалась нструментом k6, `k6 run --vus 100 --duration 3m http_post.js`
+
+* результаты нагрузки представлены на скрине дашборда ниже
+
+![Metrics](./metrics.png?raw=true "Grafana dashboard")
